@@ -53,3 +53,17 @@ body{
 
 /* Debug: add ?debug=1 to URL to visualize hit areas */
 .debug .hotspot{ outline: 1px dashed rgba(255,255,255,.4); }
+
+/* all links off */
+.links-off .frame::after{
+  content:"";
+  position:absolute; inset:0;
+  z-index:10;
+  background:transparent; /* invisible click shield */
+}
+
+/* only toes off (keep main foot active) */
+.links-off-toes .toe{ pointer-events:none; }
+.links-off-toes .toe::after{ display:none; }
+
+
