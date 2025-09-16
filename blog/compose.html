@@ -17,7 +17,7 @@
     .hidden{ display:none !important }
     .note{ color:#555; font-size:.9rem }
 
-    /* Overlay gate (visible by default even without JS) */
+    /* Overlay gate (visible by default) */
     .gate{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; z-index:9999 }
     .gate .panel{ background:#fff; color:#111; border-radius:14px; padding:1.2rem; width:min(480px, 92vw); box-shadow:0 10px 40px rgba(0,0,0,.4) }
     .gate h2{ margin:.2rem 0 .6rem; font-size:1.25rem }
@@ -37,9 +37,9 @@
     <label>Passphrase</label>
     <input id="gate-input" type="password" placeholder="e.g., pinecones-forever" autocomplete="off">
     <div class="row2">
-      <button id="gate-save">Unlock</button>
-      <button id="gate-skip" class="ghost" title="Just show the form without saving a passphrase">Skip for now</button>
-      <button id="gate-reset" class="ghost" title="Clear any saved passphrase">Reset passphrase</button>
+      <button id="gate-save" type="button">Unlock</button>
+      <button id="gate-skip" class="ghost" type="button" title="Just show the form without saving a passphrase">Skip for now</button>
+      <button id="gate-reset" class="ghost" type="button" title="Clear any saved passphrase">Reset passphrase</button>
     </div>
   </div>
 </div>
@@ -72,19 +72,18 @@
   <input id="excerpt" placeholder="One-sentence summary">
   <label>Body (HTML allowed)</label>
   <textarea id="body" placeholder="<p>Write your post here...</p>"></textarea>
-  <button id="download">Download Post HTML</button>
-  <button id="copyjson" style="margin-left:.6rem; background:#fff; color:#111">Copy JSON Entry</button>
+  <button id="download" type="button">Download Post HTML</button>
+  <button id="copyjson" type="button" style="margin-left:.6rem; background:#fff; color:#111">Copy JSON Entry</button>
   <p class="note" id="status"></p>
 </main>
 
 <script>
   // Gate overlay logic
-  (function(){
+  (function(){ 'use strict';
     const KEY='bzb_compose_secret';
     const app=document.getElementById('app');
     const gate=document.getElementById('gate');
-    const saved=localStorage.getItem(KEY);
-    if(saved){ app.classList.remove('hidden'); gate.style.display='none'; }
+    try{const saved=localStorage.getItem(KEY); if(saved){ app.classList.remove('hidden'); gate.style.display='none'; } }catch(e){}
 
     const input=document.getElementById('gate-input');
     const save=document.getElementById('gate-save');
@@ -92,34 +91,34 @@
     const reset=document.getElementById('gate-reset');
     const reset2=document.getElementById('reset-pass');
 
-    function unlock(store){
-      const v=(input.value||'').trim();
-      if(store){
-        if(!v.length){ alert('Enter a passphrase'); return; }
-        localStorage.setItem(KEY, v);
-      }
-      app.classList.remove('hidden');
+    function unlock(store){ 
+      try{ 
+        const v=(input.value||'').trim();
+        if(store){ if(!v.length){ alert('Enter a passphrase'); return; } localStorage.setItem(KEY, v); }
+      }catch(e){}
+      app.classList.remove('hidden'); 
       gate.style.display='none';
     }
 
-    if(save){ save.addEventListener('click', ()=>unlock(true)); }
-    if(skip){ skip.addEventListener('click', ()=>unlock(false)); }
-    if(reset){ reset.addEventListener('click', ()=>{ localStorage.removeItem(KEY); input.value=''; alert('Passphrase cleared.'); }); }
-    if(reset2){ reset2.addEventListener('click', (e)=>{ e.preventDefault(); localStorage.removeItem(KEY); gate.style.display='flex'; app.classList.add('hidden'); }); }
+    if(save) save.addEventListener('click', ()=>unlock(true));
+    if(skip) skip.addEventListener('click', ()=>unlock(false));
+    if(reset) reset.addEventListener('click', ()=>{ try{ localStorage.removeItem(KEY); }catch(e){} input.value=''; alert('Passphrase cleared.'); });
+    if(reset2) reset2.addEventListener('click', (e)=>{ e.preventDefault(); try{ localStorage.removeItem(KEY); }catch(e){} gate.style.display='flex'; app.classList.add('hidden'); });
   })();
 
   // Post generator
-  function htmlForPost({title, date, excerpt, body}){
+  function htmlForPost(o){ 
+    const year = 2025; 
     return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${title} — BZB Studios Blog</title>
-<meta name="description" content="${excerpt}">
+<title>${o.title} — BZB Studios Blog</title>
+<meta name="description" content="${o.excerpt}">
 <meta property="og:type" content="article">
-<meta property="og:title" content="${title} — BZB Studios Blog">
-<meta property="og:description" content="${excerpt}">
+<meta property="og:title" content="${o.title} — BZB Studios Blog">
+<meta property="og:description" content="${o.excerpt}">
 <meta property="og:image" content="/blog/assets/banner.jpg">
 <link rel="canonical" href="/blog/posts/SLUG/">
 <style>
@@ -139,22 +138,21 @@ article p{ margin:1rem 0 }
 <div class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a></div>
 </header>
 <main>
-<h1>${title}</h1>
-<div class="meta">By Ben Musser • <time datetime="${date}">${new Date(date).toLocaleDateString()}</time></div>
-<article>${body}</article>
+<h1>${o.title}</h1>
+<div class="meta">By Ben Musser • <time datetime="${o.date}">${new Date(o.date).toLocaleDateString()}</time></div>
+<article>${o.body}</article>
 </main>
-<footer>© <span class="year"></span> Ben Musser</footer>
-<script>document.addEventListener('DOMContentLoaded',()=>{var y=document.querySelector('.year'); if(y) y.textContent=new Date().getFullYear();});</script>
+<footer>© ${year} Ben Musser</footer>
 </body>
-</html>`;
+</html>`; 
   }
 
-  function jsonEntry({slug, title, date, excerpt, tags}){
-    const t = (tags||'').split(',').map(s=>s.trim()).filter(Boolean);
-    return JSON.stringify({slug, title, date, excerpt, hero:'', tags:t}, null, 2);
+  function jsonEntry(d){ 
+    const t = (d.tags||'').split(',').map(s=>s.trim()).filter(Boolean); 
+    return JSON.stringify({slug:d.slug, title:d.title, date:d.date, excerpt:d.excerpt, hero:'', tags:t}, null, 2); 
   }
 
-  document.getElementById('download').onclick = () => {
+  document.getElementById('download').addEventListener('click', () => { 
     const payload = {
       title: document.getElementById('title').value.trim() || 'Untitled',
       date: document.getElementById('date').value || new Date().toISOString().slice(0,10),
@@ -170,9 +168,9 @@ article p{ margin:1rem 0 }
     a.click();
     URL.revokeObjectURL(a.href);
     document.getElementById('status').textContent = 'Downloaded index.html. Create /blog/posts/'+slug+'/ and drop it in.';
-  };
+  });
 
-  document.getElementById('copyjson').onclick = async () => {
+  document.getElementById('copyjson').addEventListener('click', async () => { 
     const data = {
       slug: (document.getElementById('slug').value.trim() || 'untitled').toLowerCase().replace(/[^a-z0-9-]+/g,'-'),
       title: document.getElementById('title').value.trim() || 'Untitled',
@@ -181,14 +179,9 @@ article p{ margin:1rem 0 }
       tags: document.getElementById('tags').value.trim()
     };
     const entry = jsonEntry(data);
-    try {
-      await navigator.clipboard.writeText(entry);
-      document.getElementById('status').textContent = 'JSON entry copied. Append it to /blog/posts/posts.json.';
-    } catch {
-      document.getElementById('status').textContent = 'Copy failed. Manually copy from console.';
-      console.log('JSON entry:', entry);
-    }
-  };
+    try { await navigator.clipboard.writeText(entry); document.getElementById('status').textContent = 'JSON entry copied. Append it to /blog/posts/posts.json.'; }
+    catch { document.getElementById('status').textContent = 'Copy failed. Manually copy from console.'; console.log('JSON entry:', entry); }
+  });
 </script>
 </body>
 </html>
