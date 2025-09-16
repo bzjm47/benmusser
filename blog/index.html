@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BZB Studios — Blog</title>
+  <meta name="description" content="News feed for releases, liner notes, and organized ideas by Ben Musser.">
+  <link rel="canonical" href="/blog/">
+  <style>
+    :root{ --ink:#111; --bg:#f7f7fb }
+    *{box-sizing:border-box}
+    body{ margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; background:var(--bg); color:var(--ink); }
+    header,main,footer{ width:min(1100px, 95vw); margin:0 auto; padding:1.2rem }
+    .mast{ margin:.2rem 0 1rem; display:flex; align-items:center; justify-content:space-between; gap:1rem }
+    .mast a.home{ text-decoration:none; color:inherit; font-weight:900; font-size:clamp(20px,4vw,28px) }
+    .banner{ border-radius:16px; overflow:hidden; box-shadow:0 8px 30px rgba(0,0,0,.15); }
+    .banner img{ width:100%; height:auto; display:block }
+    h1{ margin:1rem 0 .3rem; font-size:clamp(26px,5vw,42px) }
+    .kicker{ color:#555; margin:0 0 1rem }
+    .grid{ display:grid; grid-template-columns: repeat(auto-fill, minmax(280px,1fr)); gap:1rem }
+    .card{ background:#fff; border:1px solid #eee; border-radius:14px; padding:1rem; display:flex; flex-direction:column; gap:.5rem; box-shadow: 0 2px 12px rgba(0,0,0,.05) }
+    .card h2{ margin:.2rem 0; font-size:1.1rem; line-height:1.25 }
+    .meta{ font-size:.9rem; color:#666 }
+    .tags{ display:flex; gap:.4rem; flex-wrap:wrap }
+    .tag{ font-size:.8rem; background:#eef2ff; border:1px solid #dfe6ff; padding:.15rem .45rem; border-radius:999px }
+    .more{ text-decoration:none; color:#0b4dff; font-weight:700; margin-top:auto; }
+    footer{ border-top:1px solid #eee; color:#666; font-size:.9rem; margin-top:1.5rem }
+  </style>
+</head>
+<body>
+<header class="mast">
+  <a class="home" href="/">← Home</a>
+</header>
+
+<section class="banner" aria-label="Site banner">
+  <img src="/blog/assets/banner.jpg" alt="BZB Studios banner">
+</section>
+
+<main>
+  <h1>Blog</h1>
+  <p class="kicker">News-style feed with links to full articles (under /blog/posts/…)</p>
+
+  <section id="feed" class="grid" aria-live="polite"></section>
+</main>
+
+<footer>© <span id="year"></span> Ben Musser</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  async function loadFeed(){
+    try{
+      const res = await fetch('/blog/posts/posts.json', {cache:'no-store'});
+      const items = await res.json();
+      const feed = document.getElementById('feed');
+      items.sort((a,b)=> (a.date<b.date?1:-1));
+      for(const it of items){
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <h2><a href="/blog/posts/${it.slug}/">${it.title}</a></h2>
+          <div class="meta"><time datetime="${it.date}">${new Date(it.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}</time></div>
+          <p>${it.excerpt||''}</p>
+          <div class="tags">${(it.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+          <a class="more" href="/blog/posts/${it.slug}/">Read more →</a>
+        `;
+        feed.appendChild(card);
+      }
+    }catch(e){
+      document.getElementById('feed').innerHTML = '<p>Feed unavailable.</p>';
+    }
+  }
+  loadFeed();
+</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compose — BZB Studios Blog</title>
+  <style>
+    :root{ --ink:#111; --bg:#fff }
+    *{box-sizing:border-box}
+    body{ margin:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; background:var(--bg); color:var(--ink); }
+    main{ width:min(1100px, 95vw); margin:2rem auto; }
+    label{ display:block; font-weight:700; margin:.7rem 0 .2rem }
+    input, textarea{ width:100%; padding:.6rem .7rem; border:1px solid #ddd; border-radius:8px; font:inherit }
+    textarea{ min-height:220px }
+    .row{ display:grid; grid-template-columns:1fr 1fr; gap:1rem }
+    button{ margin-top:1rem; padding:.6rem 1rem; border:1px solid #111; background:#111; color:#fff; border-radius:10px; cursor:pointer; font-weight:800 }
+    .hidden{ display:none }
+    .note{ color:#555; font-size:.9rem }
+  </style>
+</head>
+<body>
+<main id="app" class="hidden">
+  <h1>Compose Post</h1>
+  <p class="note">This tool generates a <code>/blog/posts/&lt;slug&gt;/index.html</code> file and a JSON entry for <code>/blog/posts/posts.json</code>. Download the HTML, drop it into your repo, then append the JSON entry to the manifest.</p>
+  <div class="row">
+    <div>
+      <label>Title</label>
+      <input id="title" placeholder="Post title">
+    </div>
+    <div>
+      <label>Slug</label>
+      <input id="slug" placeholder="kebab-case-slug">
+    </div>
+  </div>
+  <div class="row">
+    <div>
+      <label>Date</label>
+      <input id="date" type="date">
+    </div>
+    <div>
+      <label>Tags (comma separated)</label>
+      <input id="tags" placeholder="liner-notes, process">
+    </div>
+  </div>
+  <label>Excerpt</label>
+  <input id="excerpt" placeholder="One-sentence summary">
+  <label>Body (HTML allowed)</label>
+  <textarea id="body" placeholder="<p>Write your post here...</p>"></textarea>
+  <button id="download">Download Post HTML</button>
+  <button id="copyjson" style="margin-left:.6rem; background:#fff; color:#111">Copy JSON Entry</button>
+  <p class="note" id="status"></p>
+</main>
+
+<script>
+  // Very light "gate": ask for a passphrase; show tool if it matches localStorage secret
+  (function gate(){
+    const key = "bzb_compose_secret";
+    const local = localStorage.getItem(key);
+    const ask = local || prompt("Enter compose passphrase");
+    // NOTE: this is not real security—just obscurity for a static site.
+    if (ask && ask.length > 0){
+      localStorage.setItem(key, ask);
+      document.getElementById('app').classList.remove('hidden');
+    } else {
+      document.body.innerHTML = '<p style="padding:2rem">Compose disabled.</p>';
+    }
+  })();
+
+  function htmlForPost({title, date, excerpt, body}){
+    return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${title} — BZB Studios Blog</title>
+<meta name="description" content="${excerpt}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="${title} — BZB Studios Blog">
+<meta property="og:description" content="${excerpt}">
+<meta property="og:image" content="/blog/assets/banner.jpg">
+<link rel="canonical" href="/blog/posts/SLUG/">
+<style>
+:root{ --ink:#111; --bg:#fff }
+*{box-sizing:border-box}
+body{margin:0; font:16px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; color:var(--ink); background:var(--bg);}
+header,main,footer{ width:min(1000px,92vw); margin:0 auto; padding:1.2rem }
+a{ color:#0b4dff; text-decoration:none } a:hover{text-decoration:underline}
+.crumbs{ font-size:.9rem; color:#666 }
+h1{ margin:.6rem 0 .4rem; font-size:clamp(26px,4.6vw,40px); line-height:1.15 }
+.meta{ color:#666; font-size:.95rem; margin:.3rem 0 1rem }
+article p{ margin:1rem 0 }
+</style>
+</head>
+<body>
+<header>
+<div class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a></div>
+</header>
+<main>
+<h1>${title}</h1>
+<div class="meta">By Ben Musser • <time datetime="${date}">${new Date(date).toLocaleDateString()}</time></div>
+<article>${body}</article>
+</main>
+<footer>© <script>document.write(new Date().getFullYear())</script> Ben Musser</footer>
+</body>
+</html>`;
+  }
+
+  function jsonEntry({slug, title, date, excerpt, tags}){
+    const t = (tags||'').split(',').map(s=>s.trim()).filter(Boolean);
+    return JSON.stringify({slug, title, date, excerpt, hero:'', tags:t}, null, 2);
+  }
+
+  document.getElementById('download').onclick = () => {
+    const payload = {
+      title: document.getElementById('title').value.trim() || 'Untitled',
+      date: document.getElementById('date').value || new Date().toISOString().slice(0,10),
+      excerpt: document.getElementById('excerpt').value.trim() || '',
+      body: document.getElementById('body').value || '<p>...</p>'
+    };
+    const slug = (document.getElementById('slug').value.trim() || 'untitled').toLowerCase().replace(/[^a-z0-9-]+/g,'-');
+    let html = htmlForPost(payload).replace('/blog/posts/SLUG/','/blog/posts/'+slug+'/');
+    const blob = new Blob([html], {type:'text/html'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'index.html';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    document.getElementById('status').textContent = 'Downloaded index.html. Create /blog/posts/'+slug+'/ and drop it in.';
+  };
+
+  document.getElementById('copyjson').onclick = async () => {
+    const data = {
+      slug: (document.getElementById('slug').value.trim() || 'untitled').toLowerCase().replace(/[^a-z0-9-]+/g,'-'),
+      title: document.getElementById('title').value.trim() || 'Untitled',
+      date: document.getElementById('date').value || new Date().toISOString().slice(0,10),
+      excerpt: document.getElementById('excerpt').value.trim() || '',
+      tags: document.getElementById('tags').value.trim()
+    };
+    const entry = jsonEntry(data);
+    try {
+      await navigator.clipboard.writeText(entry);
+      document.getElementById('status').textContent = 'JSON entry copied. Append it to /blog/posts/posts.json.';
+    } catch {
+      document.getElementById('status').textContent = 'Copy failed. Manually copy from console.';
+      console.log('JSON entry:', entry);
+    }
+  };
+</script>
+</body>
+</html>
