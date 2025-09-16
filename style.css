@@ -110,7 +110,7 @@ body{
 .frame{
   width: min(1100px, 90vw) !important;
   margin: 0 auto 1rem !important;
-  border: 2px solid #D4AF37 !important; /* gold */
+  /* border moved to .poster */
   z-index: 1;
 }
 
@@ -140,3 +140,58 @@ body{
 
 /* Ensure no hidden hotspots remain clickable */
 .hotspot.toe { display: none !important; pointer-events: none !important; }
+
+
+/* === Tweaks: border on the actual image and layout fixes === */
+
+/* Keep the site title above everything */
+.site-title{
+  position: relative;
+  z-index: 20;
+  margin: 1rem 0 .5rem;
+  color: var(--ink);
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: .02em;
+  font-size: clamp(24px, 4.2vw, 42px);
+}
+
+/* Slightly smaller hero */
+.frame{
+  width: min(1000px, 88vw) !important;
+  margin: 0 auto 1rem !important;
+  /* no explicit border here; applied on .poster to hug the image */
+  z-index: 1;
+}
+
+/* Border around the actual image */
+.poster{
+  inset: 10px !important;             /* pull in to reveal the border within the rounded frame */
+  border: 2px solid #D4AF37 !important;/* gold border hugging the image */
+  border-radius: 16px !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,.35);
+}
+
+/* Make sure links sit above and have room */
+.site-links {
+  position: relative;
+  z-index: 10;
+  width: min(1000px, 88vw);
+  margin: 1.2rem auto 2.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+}
+.site-links a {
+  text-decoration: none;
+  color: #0a0a0a;
+  background: #d7e1ea;
+  border: 1px solid rgba(255,255,255,.25);
+  padding: .6rem .9rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.site-links a:hover {
+  filter: brightness(0.95);
+}
