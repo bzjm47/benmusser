@@ -16,11 +16,31 @@
     button{ margin-top:1rem; padding:.6rem 1rem; border:1px solid #111; background:#111; color:#fff; border-radius:10px; cursor:pointer; font-weight:800 }
     .hidden{ display:none }
     .note{ color:#555; font-size:.9rem }
-  </style>
+  
+  .gate{ position:fixed; inset:0; background:rgba(0,0,0,.6); display:flex; align-items:center; justify-content:center; z-index:9999 }
+  .gate .panel{ background:#fff; color:#111; border-radius:14px; padding:1.2rem; width:min(480px, 92vw); box-shadow:0 10px 40px rgba(0,0,0,.4) }
+  .gate h2{ margin:.2rem 0 .6rem; font-size:1.25rem }
+  .gate label{ display:block; font-weight:700; margin:.6rem 0 .2rem }
+  .gate input{ width:100%; padding:.6rem .7rem; border:1px solid #ddd; border-radius:8px; font:inherit }
+  .gate button{ margin-top:.8rem; padding:.6rem 1rem; border:1px solid #111; background:#111; color:#fff; border-radius:10px; cursor:pointer; font-weight:800 }
+  .gate .note{ color:#555; font-size:.9rem }
+  .compose-reset{ margin: 0 0 1rem; color:#666; font-size:.9rem }
+</style>
 </head>
 <body>
+<div id="gate" class="gate" style="display:none">
+  <div class="panel">
+    <h2>Enter passphrase</h2>
+    <p class="note">This only hides the page from casual visitors. It is not real security.</p>
+    <label>Passphrase</label>
+    <input id="gate-input" type="password" placeholder="e.g., pinecones-forever" autocomplete="off">
+    <button id="gate-save">Unlock</button>
+  </div>
+</div>
+
 <main id="app" class="hidden">
   <h1>Compose Post</h1>
+  <div class="compose-reset"><a href="#" id="reset-pass">Reset passphrase</a></div>
   <p class="note">This tool generates a <code>/blog/posts/&lt;slug&gt;/index.html</code> file and a JSON entry for <code>/blog/posts/posts.json</code>. Download the HTML, drop it into your repo, then append the JSON entry to the manifest.</p>
   <div class="row">
     <div>
@@ -53,18 +73,38 @@
 
 <script>
   // Very light "gate": ask for a passphrase; show tool if it matches localStorage secret
-  (function gate(){
-    const key = "bzb_compose_secret";
-    const local = localStorage.getItem(key);
-    const ask = local || prompt("Enter compose passphrase");
-    // NOTE: this is not real security—just obscurity for a static site.
-    if (ask && ask.length > 0){
-      localStorage.setItem(key, ask);
-      document.getElementById('app').classList.remove('hidden');
-    } else {
-      document.body.innerHTML = '<p style="padding:2rem">Compose disabled.</p>';
-    }
-  })();
+  
+(function gateOverlay(){
+  const KEY='bzb_compose_secret';
+  const app=document.getElementById('app');
+  const overlay=document.getElementById('gate');
+  const saved=localStorage.getItem(KEY);
+
+  function show(){ overlay.style.display='flex'; }
+  function hide(){ overlay.style.display='none'; }
+
+  if(saved){ app.classList.remove('hidden'); }
+  else{ show(); }
+
+  const input=document.getElementById('gate-input');
+  const btn=document.getElementById('gate-save');
+  if(btn){
+    btn.addEventListener('click', ()=>{
+      const v=(input.value||'').trim();
+      if(v.length){ localStorage.setItem(KEY, v); app.classList.remove('hidden'); hide(); }
+      else{ alert('Enter a passphrase'); }
+    });
+  }
+
+  const reset=document.getElementById('reset-pass');
+  if(reset){
+    reset.addEventListener('click', (e)=>{
+      e.preventDefault();
+      localStorage.removeItem(KEY);
+      show();
+    });
+  }
+})();
 
   function htmlForPost({title, date, excerpt, body}){
     return `<!doctype html>
@@ -92,6 +132,16 @@ article p{ margin:1rem 0 }
 </style>
 </head>
 <body>
+<div id="gate" class="gate" style="display:none">
+  <div class="panel">
+    <h2>Enter passphrase</h2>
+    <p class="note">This only hides the page from casual visitors. It is not real security.</p>
+    <label>Passphrase</label>
+    <input id="gate-input" type="password" placeholder="e.g., pinecones-forever" autocomplete="off">
+    <button id="gate-save">Unlock</button>
+  </div>
+</div>
+
 <header>
 <div class="crumbs"><a href="/">Home</a> / <a href="/blog/">Blog</a></div>
 </header>
