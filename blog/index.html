@@ -38,7 +38,7 @@
 
 <main>
   <h1>Blog</h1>
-  <p class="kicker">News-style feed with links to full articles (under /blog/posts/…)</p>
+  <p class="kicker">News-style feed with links to full articles.</p>
 
   <section id="feed" class="grid" aria-live="polite"></section>
 </main>
@@ -49,16 +49,17 @@
   document.getElementById('year').textContent = new Date().getFullYear();
   async function loadFeed(){
     try{
-      const res = await fetch('/blog/posts/posts.json', {cache:'no-store'});
+      const res = await fetch('/blog/posts/posts.json?ts=' + Date.now(), {cache:'no-store'});
       const items = await res.json();
       const feed = document.getElementById('feed');
       items.sort((a,b)=> (a.date<b.date?1:-1));
       for(const it of items){
         const card = document.createElement('article');
         card.className = 'card';
+        const date = new Date(it.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
         card.innerHTML = `
           <h2><a href="/blog/posts/${it.slug}/">${it.title}</a></h2>
-          <div class="meta"><time datetime="${it.date}">${new Date(it.date).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}</time></div>
+          <div class="meta"><time datetime="${it.date}">${date}</time></div>
           <p>${it.excerpt||''}</p>
           <div class="tags">${(it.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('')}</div>
           <a class="more" href="/blog/posts/${it.slug}/">Read more →</a>
