@@ -1,43 +1,49 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ben Musser — Infinity Foot</title>
-  <meta name="description" content="Infinity footprint landing with toe hotspots linking to Bigfoot Tech, MusserFlix, BZB Music, BZB Books, BZB Films." />
-  <link rel="preload" as="image" href="assets/footprint-forest.png" />
-  <link rel="stylesheet" href="style.css" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Ben Musser — Infinity Foot</title>
+<meta content="Infinity footprint landing with toe hotspots linking to Bigfoot Tech, MusserFlix, BZB Music, BZB Books, BZB Films." name="description"/>
+<link as="image" href="assets/footprint-forest.png" rel="preload"/>
+<link href="style.css" rel="stylesheet"/>
 </head>
 <body>
-  <main class="frame" aria-label="Infinity footprint with interactive toes">
-    <figure class="poster" role="img" aria-label="Infinity-shaped footprint impressed in damp forest soil, surrounded by moss and leaves"></figure>
+<main aria-label="Infinity footprint with interactive toes" class="frame">
+<figure aria-label="Infinity-shaped footprint impressed in damp forest soil, surrounded by moss and leaves" class="poster" role="img"></figure>
+<!-- Main foot (infinity) link -->
+<a aria-label="Musser.com — main foot" class="hotspot foot" href="https://musser.com">
+<span class="sr">Musser.com — main foot</span>
+</a>
+<!-- Toe links: big → small -->
 
-    <!-- Main foot (infinity) link -->
-    <a class="hotspot foot" href="https://musser.com" aria-label="Musser.com — main foot">
-      <span class="sr">Musser.com — main foot</span>
-    </a>
 
-    <!-- Toe links: big → small -->
-    <a class="hotspot toe big"    href="https://bigfoothelp.me" aria-label="BigFoot Tech — Consulting" data-label="BigFoot Tech" style="--x:72%; --y:21%;"></a>
-    <a class="hotspot toe second" href="https://musserflix.com"  aria-label="MusserFlix — Private Streaming" data-label="MusserFlix"   style="--x:66%; --y:18%;"></a>
-    <a class="hotspot toe third"  href="https://bzbmusic.com"    aria-label="BZB Music" data-label="BZB Music"                         style="--x:60%; --y:19%;"></a>
-    <a class="hotspot toe fourth" href="https://bzbbooks.com"    aria-label="BZB Books" data-label="BZB Books"                         style="--x:55%; --y:23%;"></a>
-    <a class="hotspot toe fifth"  href="https://bzbfilms.com"    aria-label="BZB Films" data-label="BZB Films"                         style="--x:50%; --y:28%;"></a>
 
-    <noscript>
-      <div class="noscript">
-        <p>Links:</p>
-        <ul>
-          <li><a href="https://musser.com">Musser.com</a></li>
-          <li><a href="https://bigfoothelp.me">BigFoot Tech</a></li>
-          <li><a href="https://musserflix.com">MusserFlix</a></li>
-          <li><a href="https://bzbmusic.com">BZB Music</a></li>
-          <li><a href="https://bzbbooks.com">BZB Books</a></li>
-          <li><a href="https://bzbfilms.com">BZB Films</a></li>
-        </ul>
-      </div>
-    </noscript>
-  </main>
-  <script src="script.js"></script>
+
+
+<noscript>
+<div class="noscript">
+<p>Links:</p>
+<ul>
+<li><a href="https://musser.com">Musser.com</a></li>
+<li><a href="https://bigfoothelp.me">BigFoot Tech</a></li>
+<li><a href="https://musserflix.com">MusserFlix</a></li>
+<li><a href="https://bzbmusic.com">BZB Music</a></li>
+<li><a href="https://bzbbooks.com">BZB Books</a></li>
+<li><a href="https://bzbfilms.com">BZB Films</a></li>
+</ul>
+</div>
+</noscript>
+</main>
+<nav aria-label="Sites" class="site-links">
+<a href="https://bigfoothelp.me">BigFoot Tech</a>
+<a href="https://musserflix.com">MusserFlix</a>
+<a href="https://bzbmusic.com">BZB Music</a>
+<a href="https://bzbbooks.com">BZB Books</a>
+<a href="https://bzbfilms.com">BZB Films</a>
+</nav>
+
+<script src="script.js"></script>
 </body>
 </html>

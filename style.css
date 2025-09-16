@@ -67,3 +67,28 @@ body{
 .links-off-toes .toe::after{ display:none; }
 
 
+
+
+/* Simple link row under the hero */
+.site-links {
+  width: min(1100px, 95vw);
+  margin: 1rem auto 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+}
+.site-links a {
+  text-decoration: none;
+  color: #0a0a0a;
+  background: #d7e1ea;
+  border: 1px solid rgba(255,255,255,.25);
+  padding: .6rem .9rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.site-links a:hover {
+  filter: brightness(0.95);
+}
+/* Ensure no hidden hotspots remain clickable */
+.hotspot.toe { display: none !important; pointer-events: none !important; }
