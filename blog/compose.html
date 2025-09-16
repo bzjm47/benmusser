@@ -100,9 +100,9 @@ article p{ margin:1rem 0 }
 <div class="meta">By Ben Musser • <time datetime="${date}">${new Date(date).toLocaleDateString()}</time></div>
 <article>${body}</article>
 </main>
-<footer>© <script>document.write(new Date().getFullYear())</script> Ben Musser</footer>
-</body>
-</html>`;
+<footer>© <span class="year"></span> Ben Musser</footer>
+<script>document.addEventListener('DOMContentLoaded',()=>{var y=document.querySelector('.year'); if(y) y.textContent=new Date().getFullYear();});<\/script>
+</body></html>`;
   }
 
   function jsonEntry({slug, title, date, excerpt, tags}){
@@ -145,6 +145,6 @@ article p{ margin:1rem 0 }
       console.log('JSON entry:', entry);
     }
   };
-</script>
+<\/script>
 </body>
 </html>
