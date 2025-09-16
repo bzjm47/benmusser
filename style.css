@@ -92,3 +92,51 @@ body{
 }
 /* Ensure no hidden hotspots remain clickable */
 .hotspot.toe { display: none !important; pointer-events: none !important; }
+
+
+/* --- Custom tweaks per request --- */
+
+/* Title */
+.site-title{
+  margin: 1rem 0 .5rem;
+  color: var(--ink);
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: .02em;
+  font-size: clamp(24px, 4.2vw, 42px);
+}
+
+/* Shrink the hero a bit, add a gold border */
+.frame{
+  width: min(1100px, 90vw) !important;
+  margin: 0 auto 1rem !important;
+  border: 2px solid #D4AF37 !important; /* gold */
+  z-index: 1;
+}
+
+/* Ensure links render above and not clipped */
+.site-links {
+  position: relative;
+  z-index: 10;
+  width: min(1100px, 90vw);
+  margin: 1rem auto 2.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .6rem;
+}
+.site-links a {
+  text-decoration: none;
+  color: #0a0a0a;
+  background: #d7e1ea;
+  border: 1px solid rgba(255,255,255,.25);
+  padding: .6rem .9rem;
+  border-radius: 999px;
+  font-weight: 700;
+}
+.site-links a:hover {
+  filter: brightness(0.95);
+}
+
+/* Ensure no hidden hotspots remain clickable */
+.hotspot.toe { display: none !important; pointer-events: none !important; }
