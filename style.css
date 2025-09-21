@@ -195,3 +195,14 @@ body{
 .site-links a:hover {
   filter: brightness(0.95);
 }
+
+/* === override: remove vignette & filters from .poster so image matches original brightness === */
+.poster{
+  background: var(--bg-url) center/cover no-repeat !important;
+  filter: none !important;
+}
+.poster::before, .poster::after { content: none !important; background: none !important; }
+/* (optional) If you switch to the sRGB-optimized JPG below:
+:root { --bg-url: url('assets/footprint-forest_srgb.jpg'); }
+*/
+
