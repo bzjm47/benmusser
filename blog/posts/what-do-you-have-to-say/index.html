@@ -34,6 +34,10 @@
   }
   .sharebar a:hover,.sharebar button:hover{ background:var(--chipHover, #eff3ff); text-decoration:none }
   .sharebar .copied{ font-size:.85rem; color:#2a7; margin-left:.25rem; display:none }
+  /* sharebar isolation patch */
+  .sharebar{ position:relative; z-index:1 }
+  article, footer{ position:relative; z-index:2 }
+
   @media (prefers-color-scheme: dark){
     .sharebar a,.sharebar button{ background:#0f1117 }
   }
@@ -54,7 +58,7 @@
     <a id="shareFb" target="_blank" rel="noopener">Facebook</a>
     <a id="shareLi" target="_blank" rel="noopener">LinkedIn</a>
     <a id="shareRd" target="_blank" rel="noopener">Reddit</a>
-    <a id="shareMail">Email</a>
+    <button id="shareMailBtn" aria-label="Share via Email">Email</button>
     <button id="copyLink" aria-label="Copy link">Copy link</button>
     <span class="copied" id="copiedMsg">Copied!</span>
   </div>
@@ -71,7 +75,7 @@
         if ($('shareFb')) $('shareFb').href = `https://www.facebook.com/sharer/sharer.php?u=${u}`;
         if ($('shareLi')) $('shareLi').href = `https://www.linkedin.com/sharing/share-offsite/?url=${u}`;
         if ($('shareRd')) $('shareRd').href = `https://www.reddit.com/submit?url=${u}&title=${q}`;
-        if ($('shareMail')) $('shareMail').href = `mailto:?subject=${q}&body=${u}`;
+        if ($('shareMailBtn')) $('shareMailBtn').addEventListener('click', ()=> { window.location.href = `mailto:?subject=${q}&body=${u}`; });
 
         if (navigator.share && $('nativeShare')) {
           $('nativeShare').addEventListener('click', () => navigator.share({ title, url }).catch(()=>{}));
