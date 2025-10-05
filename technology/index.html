@@ -20,6 +20,12 @@
   .top-nav{display:flex;justify-content:center;gap:1rem;margin:.5rem 0 0}
   .top-nav a{font-size:.95rem;opacity:.9}
 
+  /* HERO IMAGE */
+  .frame{position:relative;max-width:var(--maxw);margin:clamp(.5rem,2vw,1rem) auto 0;padding:0 1rem;text-align:center}
+  .poster{display:inline-block;width:50%;min-width:260px;max-width:560px}
+  .poster img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+  @media (max-width:480px){ .poster{width:60%;min-width:240px} }
+
   .section{max-width:var(--maxw);margin:clamp(.75rem,3vw,1.5rem) auto 0;padding:0 1rem;text-align:center}
   .section h2{margin:.25rem 0 0;font-size:clamp(1.3rem,3.5vw,1.75rem);font-weight:800;letter-spacing:.2px}
   .section p{margin:.4rem auto 0;max-width:70ch;color:var(--muted)}
@@ -47,12 +53,12 @@
       <a href="/">Home</a> • <a href="/creative/">Creative Solutions</a>
     </nav>
   </header>
-    <!-- Add inside technology/index.html (below the header) -->
+
   <main class="frame" aria-label="Technology hero">
     <figure class="poster" role="img" aria-label="Technology systems and automation">
       <img src="../assets/technology-hero.jpg" alt="Systems, automation, and media infrastructure" />
-  </figure>
-</main>
+    </figure>
+  </main>
 
   <section class="section" aria-label="Technology Solutions">
     <h2>Technology Solutions</h2>

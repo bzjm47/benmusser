@@ -20,6 +20,12 @@
   .top-nav{display:flex;justify-content:center;gap:1rem;margin:.5rem 0 0}
   .top-nav a{font-size:.95rem;opacity:.9}
 
+  /* HERO IMAGE */
+  .frame{position:relative;max-width:var(--maxw);margin:clamp(.5rem,2vw,1rem) auto 0;padding:0 1rem;text-align:center}
+  .poster{display:inline-block;width:50%;min-width:260px;max-width:560px}
+  .poster img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.45)}
+  @media (max-width:480px){ .poster{width:60%;min-width:240px} }
+
   .section{max-width:var(--maxw);margin:clamp(.75rem,3vw,1.5rem) auto 0;padding:0 1rem;text-align:center}
   .section h2{margin:.25rem 0 0;font-size:clamp(1.3rem,3.5vw,1.75rem);font-weight:800;letter-spacing:.2px}
   .section p{margin:.4rem auto 0;max-width:70ch;color:var(--muted)}
@@ -47,12 +53,13 @@
       <a href="/">Home</a> • <a href="/technology/">Technology Solutions</a>
     </nav>
   </header>
-  <!-- Add inside creative/index.html (below the header) -->
+
   <main class="frame" aria-label="Creative hero">
     <figure class="poster" role="img" aria-label="Creative work collage">
       <img src="../assets/creative-hero.jpg" alt="Collage of music, books, and films" />
     </figure>
   </main>
+
   <section class="section" aria-label="Creative Solutions">
     <h2>Creative Solutions</h2>
     <p>Music, books, and films — the human stories at the heart of the work.</p>
