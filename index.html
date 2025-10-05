@@ -2,67 +2,51 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Ben Musser — Creative Tech</title>
-<meta content="Infinity footprint landing with toe hotspots linking to Bigfoot Tech, MusserFlix, BZB Music, BZB Books, BZB Films." name="description"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ben Musser — Infinity Foot</title>
+<meta name="description" content="Ben Musser — Technology + Creativity. Infinity footprint landing with links to Technology Solutions and Creative Solutions." />
 
-<!-- Base styles (safe to move to style.css) -->
 <style>
   :root{
-    --bg: #0b0b0b;
-    --fg: #f5f5f5;
-    --muted:#cfcfcf;
-    --link:#e6e6e6;
-    --accent:#ff7a00;
-    --maxw: 1100px;
+    --bg:#0b0b0b; --fg:#f5f5f5; --muted:#cfcfcf; --link:#e6e6e6;
+    --accent:#ff7a00; --maxw:1100px;
   }
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; }
-  a { color: var(--link); text-decoration: none; }
-  a:hover { text-decoration: underline; }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
+    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
 
   /* HERO */
-  .hero { position: relative; z-index: 10; text-align: center; padding: clamp(2.25rem, 6vw, 4rem) 1rem 1rem; }
-  .site-title { margin: 0; font-weight: 800; letter-spacing: -0.02em; line-height: 1.05; font-size: clamp(2.25rem, 6vw, 4rem); text-shadow: 0 2px 16px rgba(0,0,0,.55); }
-  .site-tagline { margin: .66rem auto 0; max-width: 70ch; font-size: clamp(1rem, 2.2vw, 1.25rem); line-height: 1.5; color: #f0f0f0; text-shadow: 0 2px 12px rgba(0,0,0,.55); }
+  .hero{position:relative;z-index:10;text-align:center;
+    padding:clamp(2rem,6vw,4rem) 1rem 1rem}
+  .site-title{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.05;
+    font-size:clamp(2.25rem,6vw,4rem);text-shadow:0 2px 16px rgba(0,0,0,.55)}
+  .site-tagline{margin:.66rem auto 0;max-width:70ch;
+    font-size:clamp(1rem,2.2vw,1.25rem);line-height:1.5;color:#f0f0f0;
+    text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
-  /* FRAME (poster container) */
-  .frame { position: relative; max-width: var(--maxw); margin: clamp(.5rem, 2vw, 1.25rem) auto 0; padding: 0 1rem; }
-  .poster {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;          /* adjust if your image is different */
-    background: #111 url('assets/footprint-forest.png') center/cover no-repeat;
-    border-radius: 16px;
-    box-shadow: 0 12px 40px rgba(0,0,0,.45);
-    overflow: hidden;
-  }
+  /* POSTER (no cropping — scales proportionally) */
+  .frame{position:relative;max-width:var(--maxw);
+    margin:clamp(.5rem,2vw,1.25rem) auto 0;padding:0 1rem}
+  .poster{position:relative;width:100%}
+  .poster img{display:block;width:100%;height:auto;border-radius:16px;
+    box-shadow:0 12px 40px rgba(0,0,0,.45)}
 
-  /* HOTSPOTS */
-  .hotspot { position: absolute; display: block; outline: none; }
-  .hotspot .sr { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
-  /* Example positions — keep your existing classes if you already style them in style.css */
-  .hotspot.foot { inset: 0; } /* whole poster clickable to musser.com (keep or remove) */
+  /* ACTIONS: two options only */
+  .actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
+    max-width:var(--maxw);margin:clamp(1rem,3vw,1.5rem) auto 2rem;padding:0 1rem}
+  .btn{display:inline-block;padding:.7rem 1.1rem;border-radius:999px;
+    border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);
+    text-decoration:none;transition:.2s ease;white-space:nowrap}
+  .btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28);
+    text-decoration:none;transform:translateY(-1px)}
+  .btn-accent{border-color:rgba(255,122,0,.5);background:rgba(255,122,0,.1)}
+  .btn-accent:hover{background:rgba(255,122,0,.18)}
 
-  /* NAV LINKS */
-  .site-links { display: flex; flex-wrap: wrap; gap: .75rem 1rem; justify-content: center; max-width: var(--maxw); margin: 1rem auto 2rem; padding: 0 1rem; }
-  .site-links a {
-    padding: .55rem .9rem; border: 1px solid rgba(255,255,255,.12); border-radius: 999px;
-    background: rgba(255,255,255,.04);
-    transition: background .2s ease, border-color .2s ease, transform .1s ease;
-    text-decoration: none;
-  }
-  .site-links a:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.25); text-decoration: none; transform: translateY(-1px); }
-
-  /* NOSCRIPT fallback */
-  .noscript { background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.15); padding: 1rem; border-radius: 12px; margin-top: 1rem; }
-  .noscript p { margin: 0 0 .5rem 0; color: var(--muted); }
-  .noscript ul { margin: 0; padding-left: 1rem; }
-  .noscript a { color: #fff; }
-
-  /* Ensure poster never covers hero */
-  .poster, .frame { z-index: 1; }
-  .hero { z-index: 10; }
+  /* Accessibility helpers */
+  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+    clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
 
@@ -73,49 +57,17 @@
     <p class="site-tagline">Guiding creativity, technology, and human connection — let’s bring your ideas to life.</p>
   </header>
 
-  <!-- MAIN POSTER + HOTSPOTS -->
-  <main aria-label="Infinity footprint with interactive toes" class="frame">
-    <figure aria-label="Infinity-shaped footprint impressed in damp forest soil, surrounded by moss and leaves" class="poster" role="img">
-      <!-- Main foot (infinity) link -->
-      <a aria-label="Musser.com — main foot" class="hotspot foot" href="https://musser.com">
-        <span class="sr">Musser.com — main foot</span>
-      </a>
-
-      <!-- If you had toe hotspot elements with specific positions, re-add them here -->
-      <!-- Example:
-      <a class="hotspot toe toe-1" href="https://bigfoothelp.me" style="left:12%; top:22%; width:10%; height:14%;">
-        <span class="sr">BigFoot Tech</span>
-      </a>
-      -->
+  <!-- POSTER (scales down proportionally, no cropping) -->
+  <main class="frame" aria-label="Infinity footprint">
+    <figure class="poster" role="img" aria-label="Infinity-shaped footprint impressed in damp forest soil, surrounded by moss and leaves">
+      <img src="assets/footprint-forest.png" alt="Infinity-shaped footprint in forest soil with moss and leaves"/>
     </figure>
-
-    <!-- No-JS list of links for accessibility -->
-    <noscript>
-      <div class="noscript">
-        <p>Links:</p>
-        <ul>
-          <li><a href="https://musser.com">Musser.com</a></li>
-          <li><a href="https://bigfoothelp.me">BigFoot Tech</a></li>
-          <li><a href="https://musserflix.com">MusserFlix</a></li>
-          <li><a href="https://bzbmusic.com">BZB Music</a></li>
-          <li><a href="https://bzbbooks.com">BZB Books</a></li>
-          <li><a href="https://bzbfilms.com">BZB Films</a></li>
-        </ul>
-      </div>
-    </noscript>
   </main>
 
-  <!-- FOOTER LINKS -->
-  <nav aria-label="Sites" class="site-links">
-    <a href="https://bigfoothelp.me">BigFoot Tech</a>
-    <a href="https://musserflix.com">MusserFlix</a>
-    <a href="https://bzbmusic.com">BZB Music</a>
-    <a href="https://bzbbooks.com">BZB Books</a>
-    <a href="https://bzbfilms.com">BZB Films</a>
-    <a href="/blog/">Mind of Ben</a>
+  <!-- TWO OPTIONS -->
+  <nav class="actions" aria-label="Primary options">
+    <a class="btn btn-accent" href="/technology">Technology Solutions</a>
+    <a class="btn" href="/creative">Creative Solutions</a>
   </nav>
-
-  <!-- If you need JS for hotspot positions or interactions, include it -->
-  <!-- <script src="script.js"></script> -->
 </body>
 </html>
