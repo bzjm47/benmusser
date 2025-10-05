@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -8,36 +7,66 @@
 <meta content="Infinity footprint landing with toe hotspots linking to Bigfoot Tech, MusserFlix, BZB Music, BZB Books, BZB Films." name="description"/>
 <link as="image" href="assets/footprint-forest.png" rel="preload"/>
 <link href="style.css" rel="stylesheet"/>
+
+<!-- Minimal hero styles (optional: move to style.css) -->
+<style>
+  .hero { text-align: center; padding: clamp(2rem, 6vw, 4rem) 1rem 1rem; }
+  .site-title {
+    font-size: clamp(2.25rem, 6vw, 4rem);
+    line-height: 1.05; margin: 0; font-weight: 800; letter-spacing: -0.01em;
+  }
+  .site-tagline {
+    margin: 0.5rem auto 0; max-width: 60ch;
+    font-size: clamp(1rem, 2.2vw, 1.25rem); line-height: 1.4; opacity: 0.9;
+  }
+  /* Optional: add a little breathing room before the main graphic */
+  .frame { margin-top: clamp(0.5rem, 2vw, 1.25rem); }
+</style>
 </head>
+
 <body>
-<h1 class="site-title">BZB Studios</h1><main aria-label="Infinity footprint with interactive toes" class="frame">
-<figure aria-label="Infinity-shaped footprint impressed in damp forest soil, surrounded by moss and leaves" class="poster" role="img"></figure>
-<!-- Main foot (infinity) link -->
-<a aria-label="Musser.com — main foot" class="hotspot foot" href="https://musser.com">
-<span class="sr">Musser.com — main foot</span>
-</a>
-<!-- Toe links: big → small -->
-<noscript>
-<div class="noscript">
-<p>Links:</p>
-<ul>
-<li><a href="https://musser.com">Musser.com</a></li>
-<li><a href="https://bigfoothelp.me">BigFoot Tech</a></li>
-<li><a href="https://musserflix.com">MusserFlix</a></li>
-<li><a href="https://bzbmusic.com">BZB Music</a></li>
-<li><a href="https://bzbbooks.com">BZB Books</a></li>
-<li><a href="https://bzbfilms.com">BZB Films</a></li>
-</ul>
-</div>
-</noscript>
-</main>
-<nav aria-label="Sites" class="site-links">
-<a href="https://bigfoothelp.me">BigFoot Tech</a>
-<a href="https://musserflix.com">MusserFlix</a>
-<a href="https://bzbmusic.com">BZB Music</a>
-<a href="https://bzbbooks.com">BZB Books</a>
-<a href="https://bzbfilms.com">BZB Films</a>
-<a href="/blog/">Mind of Ben</a></nav>
-<script src="script.js"></script>
+  <!-- Hero header -->
+  <header class="hero" aria-label="Site header">
+    <h1 class="site-title">Ben Musser</h1>
+    <p class="site-tagline">
+      Guiding creativity, technology, and human connection — let’s bring your ideas to life.
+    </p>
+  </header>
+
+  <main aria-label="Infinity footprint with interactive toes" class="frame">
+    <figure aria-label="Infinity-shaped footprint impressed in damp forest soil, surrounded by moss and leaves" class="poster" role="img"></figure>
+
+    <!-- Main foot (infinity) link -->
+    <a aria-label="Musser.com — main foot" class="hotspot foot" href="https://musser.com">
+      <span class="sr">Musser.com — main foot</span>
+    </a>
+
+    <!-- Toe links: big → small -->
+    <noscript>
+      <div class="noscript">
+        <p>Links:</p>
+        <ul>
+          <li><a href="https://musser.com">Musser.com</a></li>
+          <li><a href="https://bigfoothelp.me">BigFoot Tech</a></li>
+          <li><a href="https://musserflix.com">MusserFlix</a></li>
+          <li><a href="https://bzbmusic.com">BZB Music</a></li>
+          <li><a href="https://bzbbooks.com">BZB Books</a></li>
+          <li><a href="https://bzbfilms.com">BZB Films</a></li>
+        </ul>
+      </div>
+    </noscript>
+  </main>
+
+  <nav aria-label="Sites" class="site-links">
+    <a href="https://bigfoothelp.me">BigFoot Tech</a>
+    <a href="https://musserflix.com">MusserFlix</a>
+    <a href="https://bzbmusic.com">BZB Music</a>
+    <a href="https://bzbbooks.com">BZB Books</a>
+    <a href="https://bzbfilms.com">BZB Films</a>
+    <a href="/blog/">Mind of Ben</a>
+  </nav>
+
+  <script src="script.js"></script>
 </body>
 </html>
+
