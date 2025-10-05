@@ -8,8 +8,9 @@
 
 <style>
   :root{
-    --bg:#0b0b0b; --fg:#f5f5f5; --muted:#cfcfcf;
-    --red:#ff3b30; --blue:#1e88e5; --dk:#0a0a0a;
+    --bg:#0b0b0b; --fg:#f5f5f5; --muted:#cfcfcf; --dk:#0a0a0a;
+    --red:#ff3b30; --red-deep:#9b1212;
+    --blue:#1e88e5; --blue-deep:#0d47a1;
     --maxw:1100px;
   }
   *{box-sizing:border-box}
@@ -27,7 +28,7 @@
     font-size:clamp(.95rem,2.2vw,1.15rem);line-height:1.45;color:#f0f0f0;
     text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
-  /* POSTER (~50% width; proportional; centered) */
+  /* POSTER */
   .frame{position:relative;max-width:var(--maxw);
     margin:clamp(.5rem,2vw,1rem) auto 0;padding:0 1rem;text-align:center}
   .poster{display:inline-block; width:50%; min-width:260px; max-width:560px}
@@ -36,7 +37,7 @@
 
   /* ACTION BUTTONS */
   .actions{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;
-    max-width:var(--maxw);margin:.75rem auto 1.25rem;padding:0 1rem}
+    max-width:var(--maxw);margin:.75rem auto .5rem;padding:0 1rem}
   .btn{
     display:inline-block; padding:.95rem 1.25rem; border-radius:999px;
     font-weight:800; font-size:clamp(1rem,3.6vw,1.125rem); letter-spacing:.2px;
@@ -47,21 +48,31 @@
   }
   .btn:hover{transform:translateY(-1px); text-decoration:none}
   .btn:active{transform:translateY(0)}
-  .btn-tech{
-    background: linear-gradient(135deg, var(--red) 0%, #9b1212 40%, var(--dk) 100%);
-    border-color: rgba(155,18,18,.6);
-  }
-  .btn-creative{
-    background: linear-gradient(135deg, var(--blue) 0%, #0d47a1 40%, var(--dk) 100%);
+  /* Vertical gradients: color (top) → black (bottom) */
+  .btn-tech{ /* BLUE for Technical */
+    background: linear-gradient(180deg, var(--blue) 0%, var(--blue-deep) 50%, var(--dk) 100%);
     border-color: rgba(13,71,161,.6);
   }
+  .btn-creative{ /* RED for Creative */
+    background: linear-gradient(180deg, var(--red) 0%, var(--red-deep) 50%, var(--dk) 100%);
+    border-color: rgba(155,18,18,.6);
+  }
+
+  /* Author’s Notes link under buttons */
+  .notes-link{display:block;text-align:center;margin:.4rem 0 1.1rem}
+  .notes-link a{color:var(--muted);font-weight:600}
+  .notes-link a:hover{color:#fff;text-decoration:none}
 
   /* FOOTER */
-  footer{border-top:1px solid rgba(255,255,255,.08); margin-top:1rem}
+  footer{border-top:1px solid rgba(255,255,255,.08); margin-top:.75rem}
   .footwrap{max-width:var(--maxw); margin:0 auto; padding:1rem 1rem 1.25rem;
     display:flex; flex-wrap:wrap; gap:.75rem 1rem; justify-content:center; color:var(--muted)}
   .footwrap a{color:var(--muted)}
   .footwrap a:hover{color:#fff; text-decoration:none}
+
+  @media (max-width: 480px){
+    .poster{width:60%; min-width:240px}
+  }
 </style>
 </head>
 
@@ -86,11 +97,16 @@
     <a class="btn btn-creative" href="/creative">Creative Solutions</a>
   </nav>
 
+  <!-- Author’s Notes (to /blog/) -->
+  <div class="notes-link">
+    <a href="/blog/">Author’s Notes</a>
+  </div>
+
   <!-- FOOTER -->
   <footer role="contentinfo">
     <div class="footwrap">
       <a href="/">Home</a> •
-      <a href="/articles/">Articles of Intention</a> •
+      <a href="/blog/">Author’s Notes</a> •
       <a href="/terms/">Terms</a> •
       <span>© 2025 Ben Musser, LLC</span>
     </div>
