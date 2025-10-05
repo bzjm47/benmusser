@@ -3,50 +3,60 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Ben Musser — Infinity Foot</title>
+<title>Ben Musser — Creative Technical Solutions</title>
 <meta name="description" content="Ben Musser — Technology + Creativity. Infinity footprint landing with links to Technology Solutions and Creative Solutions." />
 
 <style>
   :root{
-    --bg:#0b0b0b; --fg:#f5f5f5; --muted:#cfcfcf; --link:#e6e6e6;
-    --accent:#ff7a00; --maxw:1100px;
+    --bg:#0b0b0b; --fg:#f5f5f5; --muted:#cfcfcf;
+    --red:#e53935; --blue:#1e88e5;
+    --maxw:1100px;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
     font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  a{color:var(--link);text-decoration:none}
-  a:hover{text-decoration:underline}
+  a{color:inherit;text-decoration:none}
 
-  /* HERO */
+  /* HERO (tight on mobile so image+buttons fit on first screen) */
   .hero{position:relative;z-index:10;text-align:center;
-    padding:clamp(2rem,6vw,4rem) 1rem 1rem}
+    padding:clamp(1.25rem,5vw,2.25rem) 1rem .5rem}
   .site-title{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.05;
-    font-size:clamp(2.25rem,6vw,4rem);text-shadow:0 2px 16px rgba(0,0,0,.55)}
-  .site-tagline{margin:.66rem auto 0;max-width:70ch;
-    font-size:clamp(1rem,2.2vw,1.25rem);line-height:1.5;color:#f0f0f0;
+    font-size:clamp(1.75rem,5.5vw,3rem);text-shadow:0 2px 16px rgba(0,0,0,.55)}
+  .site-tagline{margin:.4rem auto 0;max-width:70ch;
+    font-size:clamp(.95rem,2.2vw,1.15rem);line-height:1.45;color:#f0f0f0;
     text-shadow:0 2px 12px rgba(0,0,0,.55)}
 
-  /* POSTER (no cropping — scales proportionally) */
+  /* FRAME + POSTER (no cropping; ~50% width; centered) */
   .frame{position:relative;max-width:var(--maxw);
-    margin:clamp(.5rem,2vw,1.25rem) auto 0;padding:0 1rem}
-  .poster{position:relative;width:100%}
-  .poster img{display:block;width:100%;height:auto;border-radius:16px;
-    box-shadow:0 12px 40px rgba(0,0,0,.45)}
+    margin:clamp(.5rem,2vw,1rem) auto 0;padding:0 1rem;text-align:center}
+  .poster{display:inline-block; width:50%; min-width:260px; max-width:560px}
+  .poster img{display:block;width:100%;height:auto;border-radius:14px;
+    box-shadow:0 12px 34px rgba(0,0,0,.45)}
 
-  /* ACTIONS: two options only */
-  .actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;
-    max-width:var(--maxw);margin:clamp(1rem,3vw,1.5rem) auto 2rem;padding:0 1rem}
-  .btn{display:inline-block;padding:.7rem 1.1rem;border-radius:999px;
-    border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);
-    text-decoration:none;transition:.2s ease;white-space:nowrap}
-  .btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.28);
-    text-decoration:none;transform:translateY(-1px)}
-  .btn-accent{border-color:rgba(255,122,0,.5);background:rgba(255,122,0,.1)}
-  .btn-accent:hover{background:rgba(255,122,0,.18)}
+  /* ACTION BUTTONS (big, under photo) */
+  .actions{display:flex;gap:.85rem;justify-content:center;flex-wrap:wrap;
+    max-width:var(--maxw);margin:.75rem auto 2rem;padding:0 1rem}
+  .btn{
+    display:inline-block; padding:.9rem 1.2rem; border-radius:999px;
+    font-weight:700; font-size:clamp(1rem,3.6vw,1.125rem); letter-spacing:.2px;
+    border:1px solid rgba(255,255,255,.18); background:rgba(255,255,255,.06);
+    transition:transform .08s ease, opacity .2s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .btn-tech{background:var(--red); border-color:rgba(0,0,0,.2)}
+  .btn-creative{background:var(--blue); border-color:rgba(0,0,0,.2)}
+  .btn-tech, .btn-creative{color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.25)}
 
-  /* Accessibility helpers */
-  .sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
-    clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  /* Make sure the initial mobile viewport fits hero + image + buttons */
+  @media (max-width: 480px){
+    .hero{padding-top:1rem; padding-bottom:.25rem}
+    .site-title{font-size:1.6rem}
+    .site-tagline{font-size:.98rem}
+    .poster{width:60%; min-width:240px}
+    .actions{margin:.6rem auto 1.4rem}
+    .btn{padding:.85rem 1.05rem}
+  }
 </style>
 </head>
 
@@ -57,17 +67,18 @@
     <p class="site-tagline">Guiding creativity, technology, and human connection — let’s bring your ideas to life.</p>
   </header>
 
-  <!-- POSTER (scales down proportionally, no cropping) -->
+  <!-- POSTER (proportional scale ~50%, centered) -->
   <main class="frame" aria-label="Infinity footprint">
-    <figure class="poster" role="img" aria-label="Infinity-shaped footprint impressed in damp forest soil, surrounded by moss and leaves">
+    <figure class="poster" role="img"
+      aria-label="Infinity-shaped footprint impressed in damp forest soil, surrounded by moss and leaves">
       <img src="assets/footprint-forest.png" alt="Infinity-shaped footprint in forest soil with moss and leaves"/>
     </figure>
   </main>
 
-  <!-- TWO OPTIONS -->
+  <!-- TWO OPTIONS (big, colored, under photo) -->
   <nav class="actions" aria-label="Primary options">
-    <a class="btn btn-accent" href="/technology">Technology Solutions</a>
-    <a class="btn" href="/creative">Creative Solutions</a>
+    <a class="btn btn-tech" href="/technology">Technology Solutions</a>
+    <a class="btn btn-creative" href="/creative">Creative Solutions</a>
   </nav>
 </body>
 </html>
