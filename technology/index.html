@@ -6,57 +6,30 @@
 <title>Ben Musser — Technology Solutions</title>
 <meta name="description" content="Technology Solutions by Ben Musser — systems, automation, and private media infrastructure." />
 <style>
-  :root{ --bg:#0b0b0b; --fg:#f5f5f5; --muted:#cfcfcf; --link:#e6e6e6;
-         --blue:#1e88e5; --blue-deep:#0d47a1; --maxw:1100px; --dk:#0a0a0a; }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
-    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  a{color:var(--link);text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  .hero{position:relative;text-align:center;padding:clamp(1.5rem,6vw,3rem) 1rem .75rem}
-  .site-title{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.05;font-size:clamp(2rem,6vw,3.5rem)}
-  .site-tagline{margin:.5rem auto 0;max-width:70ch;font-size:clamp(1rem,2.2vw,1.15rem);line-height:1.45;opacity:.95}
-  .top-nav{display:flex;justify-content:center;gap:1rem;margin:.5rem 0 0}
-  .top-nav a{font-size:.95rem;opacity:.9}
-
-  /* HERO IMAGE */
+  :root{ --bg:#0b0b0b; --fg:#f5f5f5; --muted:#cfcfcf; --link:#e6e6e6; --blue:#1e88e5; --blue-deep:#0d47a1; --maxw:1100px; --dk:#0a0a0a; }
+  *{box-sizing:border-box} html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  a{color:var(--link);text-decoration:none} a:hover{text-decoration:underline}
   .frame{position:relative;max-width:var(--maxw);margin:clamp(.5rem,2vw,1rem) auto 0;padding:0 1rem;text-align:center}
   .poster{display:inline-block;width:50%;min-width:260px;max-width:560px}
   .poster img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.45)}
   @media (max-width:480px){ .poster{width:60%;min-width:240px} }
-
   .section{max-width:var(--maxw);margin:clamp(.75rem,3vw,1.5rem) auto 0;padding:0 1rem;text-align:center}
   .section h2{margin:.25rem 0 0;font-size:clamp(1.3rem,3.5vw,1.75rem);font-weight:800;letter-spacing:.2px}
   .section p{margin:.4rem auto 0;max-width:70ch;color:var(--muted)}
-
   .links{display:flex;flex-wrap:wrap;gap:.75rem 1rem;justify-content:center;max-width:var(--maxw);margin:clamp(.75rem,2.5vw,1.5rem) auto 2rem;padding:0 1rem}
-  .pill{
-    display:inline-block;padding:.8rem 1.15rem;border-radius:999px;border:1px solid rgba(255,255,255,.18);
-    background: linear-gradient(180deg, var(--blue) 0%, var(--blue-deep) 50%, var(--dk) 100%);
-    color:#fff; font-weight:700; letter-spacing:.2px; box-shadow:0 8px 24px rgba(0,0,0,.35);
-    transition:transform .08s
-  }
-  .pill:hover{transform:translateY(-1px); text-decoration:none}
-
+  .pill{display:inline-block;padding:.8rem 1.15rem;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:linear-gradient(180deg,var(--blue) 0%,var(--blue-deep) 50%,var(--dk) 100%);color:#fff;font-weight:700;letter-spacing:.2px;box-shadow:0 8px 24px rgba(0,0,0,.35);transition:transform .08s}
+  .pill:hover{transform:translateY(-1px)}
   footer{border-top:1px solid rgba(255,255,255,.08); margin-top:.5rem}
-  .footwrap{max-width:var(--maxw); margin:0 auto; padding:1rem 1rem 1.25rem;
-    display:flex; flex-wrap:wrap; gap:.75rem 1rem; justify-content:center; color:var(--muted)}
-  .footwrap a{color:var(--muted)} .footwrap a:hover{color:#fff; text-decoration:none}
+  .footwrap{max-width:var(--maxw); margin:0 auto; padding:1rem 1rem 1.25rem;display:flex;flex-wrap:wrap;gap:.75rem 1rem;justify-content:center;color:var(--muted)}
+  .footwrap a{color:var(--muted)} .footwrap a:hover{color:#fff}
 </style>
 </head>
 <body>
-  <header class="hero" aria-label="Site header">
-    <h1 class="site-title">Ben Musser</h1>
-    <p class="site-tagline">Guiding creativity, technology, and human connection — let’s bring your ideas to life.</p>
-    <nav class="top-nav" aria-label="Local">
-      <a href="/">Home</a> • <a href="/creative/">Creative Solutions</a>
-    </nav>
-  </header>
+  <div id="site-header"></div>
 
   <main class="frame" aria-label="Technology hero">
     <figure class="poster" role="img" aria-label="Technology systems and automation">
-      <img src="../assets/technology-hero.jpg" alt="Systems, automation, and media infrastructure" />
+      <img src="./assets/technology-hero.jpg" alt="Systems, automation, and media infrastructure" />
     </figure>
   </main>
 
@@ -70,13 +43,9 @@
     <a class="pill" href="https://musserflix.com">MusserFlix</a>
   </nav>
 
-  <footer role="contentinfo">
-    <div class="footwrap">
-      <a href="/">Home</a> •
-      <a href="/blog/">Author’s Notes</a> •
-      <a href="/terms/">Terms</a> •
-      <span>© 2025 Ben Musser, LLC</span>
-    </div>
-  </footer>
+  <div id="contact-cta"></div>
+
+  <div id="site-footer"></div>
+  <script src="/assets/includes.js"></script>
 </body>
 </html>

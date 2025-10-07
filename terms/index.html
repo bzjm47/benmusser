@@ -7,36 +7,19 @@
 <meta name="description" content="Terms of use for Ben Musser, LLC — rights, responsibilities, and acceptable use." />
 <style>
   :root{ --bg:#0b0b0b; --fg:#f5f5f5; --muted:#cfcfcf; --link:#e6e6e6; --maxw:900px; }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);
-    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  a{color:var(--link);text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  .hero{position:relative;text-align:center;padding:clamp(1.5rem,6vw,3rem) 1rem .75rem}
-  .site-title{margin:0;font-weight:800;letter-spacing:-.02em;line-height:1.05;font-size:clamp(2rem,6vw,3.5rem)}
-  .site-tagline{margin:.5rem auto 0;max-width:70ch;font-size:clamp(1rem,2.2vw,1.15rem);line-height:1.45;opacity:.95}
-
-  .top-nav{display:flex;justify-content:center;gap:1rem;margin:.5rem 0 0;opacity:.9}
+  *{box-sizing:border-box} html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+  a{color:var(--link);text-decoration:none} a:hover{text-decoration:underline}
   .terms{max-width:var(--maxw); margin:clamp(1rem,3vw,2rem) auto 2rem; padding:0 1rem}
   .terms h2{margin:1.25rem 0 .5rem; font-size:1.25rem}
   .terms p{color:var(--muted); line-height:1.6}
   .terms ul{color:var(--muted)}
-
   footer{border-top:1px solid rgba(255,255,255,.08); margin-top:.5rem}
-  .footwrap{max-width:var(--maxw); margin:0 auto; padding:1rem 1rem 1.25rem;
-    display:flex; flex-wrap:wrap; gap:.75rem 1rem; justify-content:center; color:var(--muted)}
-  .footwrap a{color:var(--muted)} .footwrap a:hover{color:#fff; text-decoration:none}
+  .footwrap{max-width:var(--maxw); margin:0 auto; padding:1rem 1rem 1.25rem;display:flex;flex-wrap:wrap;gap:.75rem 1rem;justify-content:center;color:var(--muted)}
+  .footwrap a{color:var(--muted)} .footwrap a:hover{color:#fff}
 </style>
 </head>
 <body>
-  <header class="hero" aria-label="Site header">
-    <h1 class="site-title">Ben Musser</h1>
-    <p class="site-tagline">Guiding creativity, technology, and human connection — let’s bring your ideas to life.</p>
-    <nav class="top-nav" aria-label="Local">
-      <a href="/">Home</a> • <a href="/blog/">Author’s Notes</a> • <a href="/technology/">Technology</a> • <a href="/creative/">Creative</a>
-    </nav>
-  </header>
+  <div id="site-header"></div>
 
   <main class="terms" aria-label="Terms of Use">
     <h2>1) Acceptance of Terms</h2>
@@ -73,13 +56,7 @@
     <p class="meta" style="color:#9aa; margin-top:1rem;">Effective date: October 2025</p>
   </main>
 
-  <footer role="contentinfo">
-    <div class="footwrap">
-      <a href="/">Home</a> •
-      <a href="/blog/">Author’s Notes</a> •
-      <a href="/terms/">Terms</a> •
-      <span>© 2025 Ben Musser, LLC</span>
-    </div>
-  </footer>
+  <div id="site-footer"></div>
+  <script src="/assets/includes.js"></script>
 </body>
 </html>
